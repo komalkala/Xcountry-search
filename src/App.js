@@ -23,13 +23,19 @@ function App() {
   }, []);
 
   const handleSearch = (term) => {
-    setSearchTerm(term.toLowerCase());
-    const filtered = countries.filter(
-      (country) => country.name.common.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredCountries(filtered);
+    const lowerCaseTerm = term.toLowerCase();
+    setSearchTerm(lowerCaseTerm);
+  
+    if (lowerCaseTerm === '') {
+      setFilteredCountries(countries);
+    } else {
+      const filtered = countries.filter(
+        (country) => country.name.common.toLowerCase().includes(lowerCaseTerm)
+      );
+      setFilteredCountries(filtered);
+    }
   };
-
+  
   const cardStyle = {
     width: "150px",
     height:"150px",
