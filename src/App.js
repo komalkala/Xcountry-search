@@ -25,58 +25,59 @@ function App() {
   const handleSearch = (term) => {
     const lowerCaseTerm = term.toLowerCase();
     setSearchTerm(lowerCaseTerm);
-  
+
     if (lowerCaseTerm === '') {
       setFilteredCountries(countries);
     } else {
       const filtered = countries.filter(
         (country) => country.name.common.toLowerCase().includes(lowerCaseTerm)
       );
-      setFilteredCountries(filtered);
+      setFilteredCountries(filtered.slice(0, 3)); // Display only the first 3 results
     }
   };
-  
+
   const cardStyle = {
-    width: "150px",
-    height:"150px",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    margin: "10px",
-    padding: "10px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '150px',
+    height: '150px',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    margin: '10px',
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'rgb(242 242 242 / 20%)',
   };
   const imageStyle = {
-    width: "100px",
-    height: "100px",
+    width: '100px',
+    height: '100px',
   };
 
   return (
     <>
-    <div className='headerStyle'>
-      <input
-        type="text"
-        id="searchInput"
-        className="searchStyle"
-        placeholder="Search for a countries..."
-        value={searchTerm}
-        onChange={(e) => handleSearch(e.target.value)}
-      /> </div>
+      <div className='headerStyle'>
+        <input
+          type='text'
+          id='searchInput'
+          className='searchStyle'
+          placeholder='Search for countries...'
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
 
-         <div className='containerStyle'>
- 
+      <div className='containerStyle'>
         {filteredCountries.map((country) => (
           <div style={cardStyle} key={country.name.common}>
-            <img src={country.flags.svg} alt={country.name.common}     style={imageStyle} />
+            <img src={country.flags.svg} alt={country.name.common} style={imageStyle} />
             <p>{country.name.common}</p>
           </div>
         ))}
       </div>
-
     </>
   );
 }
+
 export default App;
+
